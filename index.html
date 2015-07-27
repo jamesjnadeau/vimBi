@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Bink Vimeo Integration</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<style>
+			body {
+				background: #121212;
+				
+			}
+			
+			.screen {
+				width: 375px;
+				height:667px;
+				background: url(connect-accounts.png);
+				position: relative;
+			}
+			
+			.v-button {
+				background: rgba(100,100,100,0.3);
+				width: 64px;
+				height: 64px;
+				position: absolute;
+				left: 120px;
+				top: 220px
+				
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="screen">
+			<a class="v-button"></a>
+		</div>
+	</body>
+	<script>
+	$('.v-button').click(function() {
+		$.ajax({
+			url: 'vimeo.com/api/endpoint',
+			headers: { 'Authorization': 'bearer c0a6ba1a5d1ab3145f2374f5c27208d9' },
+			success: function(response) {
+				//do something with the data
+				console.log(response)
+ 			},
+ 			error: function(err) {
+ 			//do something with the err
+ 			}
+		});
+
+	});	
+	</script>
+</html>
