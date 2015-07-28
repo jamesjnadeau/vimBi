@@ -1,14 +1,17 @@
-<?php 
-
+<?php
 include('config.php');
 
-//a random value that we will validate when they come back with
-$state = bin2hex(openssl_random_pseudo_bytes(16));
-$_SESSION['oauth_state'] = $state;
+if(!isset($_SESSION['vimeo_access_token'])) {
+  header( 'Location: /' );
+  exit();
+}
+//set the token for the library
+$vimeo->setToken($_SESSION['vimeo_access_token']);
 
-//create auth url
-$auth_redirect_url = $vimeo->buildAuthorizationEndpoint($redirect_uri, $scopes, $state);
-
+//do stuff with the library
+//use the api
+$response = $vimeo->request('/me/videos', array('per_page' => 2), 'GET');
+var_dump($response['body']);
 ?>
 <html>
 	<head>
@@ -23,7 +26,7 @@ $auth_redirect_url = $vimeo->buildAuthorizationEndpoint($redirect_uri, $scopes, 
 			.screen {
 				width: 375px;
 				height:667px;
-				background: url(connect-accounts.png);
+				background: url(first-post.png);
 				position: relative;
 			}
 			
@@ -41,8 +44,11 @@ $auth_redirect_url = $vimeo->buildAuthorizationEndpoint($redirect_uri, $scopes, 
 	</head>
 	<body>
 		<div class="screen">
-			<a class="v-button" href="<?php echo $auth_redirect_url; ?>"></a>
+			<div class="vlist"></div>
 		</div>
+		
+		
+		
 	</body>
 </html>
 <!--<p>State <?php echo $_SESSION['oauth_state']; ?></p>-->
