@@ -44,11 +44,36 @@ var_dump($response['body']);
 	</head>
 	<body>
 		<div class="screen">
-			<div class="vlist"></div>
+			
+				<ul class="vlist"></ul>
+			
 		</div>
 		
-		
-		
-	</body>
+		</body>
+		<script>
+			$(document).ready(function () {
+				$.ajax({
+					type: "POST",
+				    
+				    data: "{}",
+				    dataType: "json",
+				    contentType: "application/json; charset=utf-8",
+				    async: true,
+				    success: OnSuccess,
+				    error: OnError
+				});
+
+			function OnSuccess(data) {
+			    $.each(data, function() {
+				$(".vlist").append("<li><img src=" + this.link + " /></li>");
+				});
+}
+
+function OnError(data) {
+
+}
+    });
+</script>
+
 </html>
 <!--<p>State <?php echo $_SESSION['oauth_state']; ?></p>-->
