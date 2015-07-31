@@ -11,7 +11,7 @@ $vimeo->setToken($_SESSION['vimeo_access_token']);
 //do stuff with the library
 //use the api
 $response = $vimeo->request('/me/videos', array('per_page' => 2), 'GET');
-var_dump($response['body']);
+//var_dump($response['body']);
 ?>
 <html>
 	<head>
@@ -44,36 +44,13 @@ var_dump($response['body']);
 	</head>
 	<body>
 		<div class="screen">
-			
-				<ul class="vlist"></ul>
-			
+			<ul class="vlist">
+				<?php foreach($response as $value) { ?>
+					<li><pre><?php var_dump($value); ?></pre></li>
+				<?php } ?>
+			</ul>
 		</div>
 		
-		</body>
-		<script>
-			$(document).ready(function () {
-				$.ajax({
-					type: "POST",
-				    
-				    data: "{}",
-				    dataType: "json",
-				    contentType: "application/json; charset=utf-8",
-				    async: true,
-				    success: OnSuccess,
-				    error: OnError
-				});
-
-			function OnSuccess(data) {
-			    $.each(data, function() {
-				$(".vlist").append("<li><img src=" + this.link + " /></li>");
-				});
-}
-
-function OnError(data) {
-
-}
-    });
-</script>
-
+	</body>
 </html>
 <!--<p>State <?php echo $_SESSION['oauth_state']; ?></p>-->
